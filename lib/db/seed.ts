@@ -18,7 +18,7 @@ const main = async () => {
             createdProducts,
             message: "Successfully seeded Database",
         });
-        process.exit(0);
+        process.exit(0); 
     } catch (error) {
         console.error(error);
         throw new Error("Failed to seed Database");
