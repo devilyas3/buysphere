@@ -9,6 +9,8 @@ import SelectVariant from "@/components/shared/product/select-variant";
 import ProductSlider from "@/components/shared/product/product-slider";
 import BrowsingHistoryList from "@/components/shared/browsing-history-list";
 import AddToBrowsingHistory from "@/components/shared/product/add-to-browsing-history";
+import AddToCart from "@/components/shared/product/add-to-cart";
+import { generateId, round2 } from "@/lib/utils";
 
 export async function generateMetadata(props: {
     params: Promise<{ slug: string }>
@@ -100,6 +102,25 @@ export default async function ProductDetails(props: {
                                     <div className="text-green-700 text-xl">In Stock</div>
                                 ) : (
                                     <div className="text-destructive text-xl">Out of Stock</div>
+                                )}
+                                {product.countInStock > 0 && (
+                                    <div className="flex justify-center items-center">
+                                        <AddToCart
+                                            item={{
+                                                clientId: generateId(),
+                                                product: product._id,
+                                                name: product.name,
+                                                image: product.images[0],
+                                                slug: product.slug,
+                                                category: product.category,
+                                                quantity: 1,
+                                                countInStock: product.countInStock,
+                                                price: round2(product.price),
+                                                size: size || product.sizes[0],
+                                                color: color || product.colors[0],
+                                            }}
+                                        />
+                                    </div>
                                 )}
                             </CardContent>
                         </Card>
